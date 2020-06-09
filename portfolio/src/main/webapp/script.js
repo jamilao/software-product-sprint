@@ -17,7 +17,10 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+      ['Our fates are sealed. But I think we have one move left: We can try. – Eleanor Shellstrop', 
+      'We have no plan. No one’s coming to save us. So… I’m going to do it. – Michael', 
+      'I argue that we choose to be good because of our bonds with other people and our innate desire to treat them with dignity. Simply put, we are not in this alone. – Chidi Anagonye', 
+      'In football, trying to run out the clock and hoping for the best never works. It’s called prevent defense. You don’t take any chances and just try and hold on to your lead. But prevent defense just PREVENTS you from winning! It’s always better to try something. – Jason Mendoza'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -25,4 +28,18 @@ function addRandomGreeting() {
   // Add it to the page.
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
+}
+function addCoursework(){
+    const courses = ['Engineering Design & Communication', 
+        'Computational Methods in Engineering','Matrices & Vector Spaces',
+        'Computer Architecture','Data Structures & Algorithms',
+        'Product Managment','Web Design & Narrative','Foundations of Education'];
+    const courselist = document.createElement("UL");
+    for (var i = 0; i < courses.length; i++){
+        var course = document.createElement("LI");
+        course.innerText = courses[i];
+        courselist.appendChild(course);
+    }
+    const courseContainer = document.getElementById('course-container');
+    courseContainer.appendChild(courselist);
 }
