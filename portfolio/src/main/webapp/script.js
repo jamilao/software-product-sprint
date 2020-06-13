@@ -43,3 +43,9 @@ function addCoursework(){
     const courseContainer = document.getElementById('course-container');
     courseContainer.appendChild(courselist);
 }
+async function helloJamila(){
+    const response = await fetch('/data');
+    const greeting = await response.text();
+    document.getElementById('greeting').innerText = greeting;
+
+}
