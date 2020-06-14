@@ -79,6 +79,11 @@ input[type=submit]{
 .courses {
     padding: 0;
 }
+#comments {
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+}
 #nav_bar {
     top: 0;
     background-color: #5e6472;

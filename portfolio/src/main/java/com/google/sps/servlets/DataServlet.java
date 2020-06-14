@@ -34,12 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   ArrayList<String> messages = new ArrayList<>();
   ArrayList<CommentData> comments = new ArrayList<>(); 
-//   @Override
-//   public void init(){
-//       messages.add("Spotify or Apple Music?");
-//       messages.add("Light mode or dark mode?");
-//       messages.add("Mac or PC?");
-//   }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment");
@@ -61,9 +56,7 @@ public class DataServlet extends HttpServlet {
       String name = request.getParameter("full-name");
       String email = request.getParameter("email");
       String message = request.getParameter("message");
-    //   CommentData comment = new CommentData(name,email,message);
-    //   comments.add(comment);
-      
+
       Entity commentEntity = new Entity("Comment");
       commentEntity.setProperty("name",name);
       commentEntity.setProperty("email",email);

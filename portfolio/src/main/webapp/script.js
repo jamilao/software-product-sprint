@@ -48,23 +48,19 @@ async function helloJamila(){
     const greeting = await response.text();
     document.getElementById('greeting').innerText = greeting;
 }
-async function fetchJSON(){
-    const container = document.getElementById('greeting');
-    console.log("Fetching JSON...");
-    const data = fetch('/data')
+
+async function fetchComments(){
+    const container = document.getElementById('comments');
+    console.log("Fetching Comments");
+    const comments = fetch('/data')
     .then(response => response.json())
     .then(message => {
-        console.log(message[0]);
-        console.log(message[1]);
-        console.log(message[2]);
-        container.innerText = message[0] + "\n" + message[1] + "\n" + message[2];
-        }
+        container.innerText = "";
+        console.log(message);
+        message.forEach((msg) => {
+            console.log(msg);
+            container.innerText += msg.message + "\n";
+        });
+    }
     );
 }
-// fetch('/my-data-url')  // sends a request to /my-data-url
-// .then(response => response.json()) // parses the response as JSON
-// .then((myObject) => { // now we can reference the fields in myObject!
-//   console.log(myObject.x);
-//   console.log(myObject.y);
-//   console.log(myObject.z);
-// });
