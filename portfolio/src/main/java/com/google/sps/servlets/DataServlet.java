@@ -16,17 +16,18 @@ package com.google.sps.servlets;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   ArrayList<String> messages = new ArrayList<>();
+  ArrayList<CommentData> comments = new ArrayList<>(); 
   @Override
   public void init(){
       messages.add("Spotify or Apple Music");
@@ -39,9 +40,28 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(json_messages);
   }
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      String name = request.getParameter("full-name");
+      String email = request.getParameter("email");
+      String message = request.getParameter("message");
+      CommentData comment = new CommentData(name,email,message);
+      comments.add(comment);
+      response.sendRedirect("/index.html");
+  }
   private String convertToJson(ArrayList items){
       Gson gson = new Gson();
       String json = gson.toJson(items);
       return json;
+  }
+  public class CommentData {
+      String name;
+      String email;
+      String message;
+      CommentData(String n, String e, String m){
+        name = n;
+        email = e;
+        message = m;
+      }
   }
 }
