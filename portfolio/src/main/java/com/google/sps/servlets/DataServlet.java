@@ -17,6 +17,9 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,15 +34,25 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   ArrayList<String> messages = new ArrayList<>();
   ArrayList<CommentData> comments = new ArrayList<>(); 
-  @Override
-  public void init(){
-      messages.add("Spotify or Apple Music");
-      messages.add("Light mode or dark mode?");
-      messages.add("Mac or PC?");
-  }
+//   @Override
+//   public void init(){
+//       messages.add("Spotify or Apple Music?");
+//       messages.add("Light mode or dark mode?");
+//       messages.add("Mac or PC?");
+//   }
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json_messages = convertToJson(messages);
+    Query query = new Query("Comment");
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()){
+        String name = (String) entity.getProperty("name");
+        String email = (String) entity.getProperty("email");
+        String message = (String) entity.getProperty("message");
+        CommentData comment = new CommentData(name,email,message);
+        comments.add(comment);
+    }
+    String json_messages = convertToJson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json_messages);
   }
@@ -58,7 +71,7 @@ public class DataServlet extends HttpServlet {
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
-      
+
       response.sendRedirect("/index.html");
   }
   private String convertToJson(ArrayList items){
