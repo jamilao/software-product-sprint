@@ -14,6 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,8 +48,17 @@ public class DataServlet extends HttpServlet {
       String name = request.getParameter("full-name");
       String email = request.getParameter("email");
       String message = request.getParameter("message");
-      CommentData comment = new CommentData(name,email,message);
-      comments.add(comment);
+    //   CommentData comment = new CommentData(name,email,message);
+    //   comments.add(comment);
+      
+      Entity commentEntity = new Entity("Comment");
+      commentEntity.setProperty("name",name);
+      commentEntity.setProperty("email",email);
+      commentEntity.setProperty("message",message);
+
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(commentEntity);
+      
       response.sendRedirect("/index.html");
   }
   private String convertToJson(ArrayList items){
