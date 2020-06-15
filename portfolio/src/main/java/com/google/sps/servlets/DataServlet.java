@@ -72,7 +72,7 @@ public class DataServlet extends HttpServlet {
       String json = gson.toJson(items);
       return json;
   }
-  public class CommentData {
+  private class CommentData {
       String name;
       String email;
       String message;
