@@ -7,7 +7,7 @@
     vertical-align: baseline;
     background: transparent;
     }
-body {
+body, form {
     background-color: #393d46;
     color: white;
     font-family: 'Playfair Display', serif;
@@ -27,9 +27,6 @@ h3 {
     font-style: bold;
 }
 h4 {
-    padding: 15px;
-}
-h4 {
     font-size: 20px;
     padding: 10px;
 }
@@ -38,7 +35,7 @@ a {
 }
 a.internal {
     text-decoration: none;
-    font-family: 'Roboto', serif;
+    font-family: 'Roboto', sans-serif;
 }
 a:visited, a:hover {
     color: #faf3dd;
@@ -50,6 +47,28 @@ ul {
 li {
     padding: 10px;
 }
+form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
+}
+textarea, input[type=text]{
+    width: 100%;
+    color: black;
+    background-color: white;
+    resize: none;
+    height: 40px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+textarea {
+    height: 200px;
+}
+input[type=submit]{
+    background-color: white;
+    padding: 10px;
+    cursor: pointer;
+}
 .container {
     display: flex;
     flex-wrap: nowrap;
@@ -59,6 +78,11 @@ li {
 }
 .courses {
     padding: 0;
+}
+#comments {
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
 }
 #nav_bar {
     top: 0;

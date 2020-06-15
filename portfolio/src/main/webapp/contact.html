@@ -9,7 +9,7 @@
     <link rel="icon" href="/images/favicon.png">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="fetchComments()">
       <div id="header">
           <section id="nav_bar" class="container">
               <h4><a href="index.html" class="internal">Home</a></h4>
@@ -22,12 +22,32 @@
         <h1>Contact Information</h1>
           </section>
       </div>
-    <div id="content"> 
-      <section id="background">
+		<div id="content">    
+    <section id="contact_form">
+        <form action="/data" method="POST">
+				<h3>Get in touch</h2> <br/>
+        	<h5>Full Name: </h5>
+        	<input type="text" name="full-name" autocomplete="name" required>
+        <br/> <br/>
+        	<h5>Email: </h5>
+        	<input type="text" name="email" autocomplete="email" required>
+        <br/> <br/>
+        	<h5>Leave a nice message: </h5>
+        	<textarea name="message" required></textarea>
+        <br/><br/>
+        	<input type="submit" value="Submit">
+        </form>
+    </section>
+    <section id="background">
       <h5>Email: <a href="mailto:jamila.otieno@duke.edu" target="_blank">jamila.otieno@duke.edu</a></h5>
       <h5>Linkedin: <a href="https://www.linkedin.com/in/jamila-otieno/" target="_blank">https://www.linkedin.com/in/jamila-otieno/</a></h5>
       <h5>GitHub: <a href="https://github.com/jamilao" target="_blank">https://github.com/jamilao</a></h5>
-      </section>
+    </section>
+    <div>
+    <h3>See comments below!</h3>
+    <section id="comments">
+    </section>
+    </comments>
     </div>
     <section id="footer">
     </section>
