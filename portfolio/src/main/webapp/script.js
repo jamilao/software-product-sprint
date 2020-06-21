@@ -48,7 +48,6 @@ async function helloJamila(){
     const greeting = await response.text();
     document.getElementById('greeting').innerText = greeting;
 }
-
 async function fetchComments(){
     const container = document.getElementById('comments');
     console.log("Fetching Comments");
@@ -62,5 +61,19 @@ async function fetchComments(){
             container.innerText += msg.message + "\n";
         });
     }
+    );
+}
+async function fetchTranslation(){
+    const container = document.getElementById('result');
+    console.log("requesting translation");
+    fetch('/translate')
+    .then(response => response.json())
+    .then(translation => {
+        console.log(translation);
+        if(translation.length == 0){
+            return;
+        }
+        container.innerText = translation[0];
+        }
     );
 }

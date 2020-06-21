@@ -14,14 +14,28 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.BucketInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+
 import com.google.gson.Gson;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.servlet.annotation.WebServlet;
@@ -40,16 +54,17 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()){
-        String name = (String) entity.getProperty("name");
-        String email = (String) entity.getProperty("email");
-        String message = (String) entity.getProperty("message");
-        CommentData comment = new CommentData(name,email,message);
-        comments.add(comment);
-    }
-    String json_messages = convertToJson(comments);
-    response.setContentType("application/json;");
-    response.getWriter().println(json_messages);
+    UserService userService = UserServiceFactory.getUserService();
+        for (Entity entity : results.asIterable()){
+            String name = (String) entity.getProperty("name");
+            String email = (String) entity.getProperty("email");
+            String message = (String) entity.getProperty("message");
+            CommentData comment = new CommentData(name,email,message);
+            comments.add(comment);
+        }
+        String json_messages = convertToJson(comments);
+        response.setContentType("application/json;");
+        response.getWriter().println(json_messages);
   }
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -25,7 +25,23 @@
     <div id="content"> 
       <section id="background">
           <div id="greeting"></div>
-          <h3>About Me</h3>
+        <h3>About Me</h3>     
+        <h4>Select a language</h4>
+    <form action="/translate" method="POST">
+        <select name="language"id="language">
+            <option value="en">English</option>
+            <option value="zh">Chinese</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+        </select>
+        <h4>Message to translate</h4>
+        <textarea name="message" required></textarea>
+        <input type="submit" value="Submit">      
+    </form>
+    <button onclick="fetchTranslation()"><p>View Translated Text<p></button>
+    <div id="result"></div>
+    <br><br>
+    <div id="text">
       <p>Jamila is a second year student and David M. Rubenstein Scholar at Duke University. She plans on pursuing a degree in Computer Science. Outside of her classes, she currently works as a Product Manager/Operations Manager for Duke Applied Machine Learning Group where she works to bring the benefits of machine learning to small businesses and as a design engineer for Duke Motorsports. She is also the alumni relations chair for Duke Catalyst Tech Society and an active member of the National Society of Black Engineers, DukeAfrica, and Google’s Software Product Sprint.
       </p>
       <br>
@@ -36,14 +52,11 @@
         <p>
         Jamila is a staunch believer in empowerment through education and actively works to break barriers to knowledge attainment. In her spare time, she enjoys graphic design and throwing javelin. 
       </p>
+      </div> 
       <br>
       <a href="https://www.linkedin.com/in/jamila-otieno/" target="_blank">Connect with me on LinkedIn!</a><br>
       <a href="https://github.com/jamilao" target="_blank">Check out my GitHub</a><br>
       </section>
-      <!--<p>Click here to get a random quote from The Good Place:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container">        
-    </div>-->
     </div>
     <section id="footer">
     </section>
