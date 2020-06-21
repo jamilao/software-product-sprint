@@ -36,16 +36,20 @@ public class TranslationServlet extends HttpServlet {
     Translation translation = translate.translate(originalText, Translate.TranslateOption.targetLanguage(languageCode));
     String translatedText = translation.getTranslatedText();
 
+    //Delete previous translations from database
+    Query query = new Query("Translation");
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+    UserService userService = UserServiceFactory.getUserService();
+    for (Entity entity : results.asIterable()){
+        datastore.delete(entity.getKey());
+    }
+
     //Save translation to database
     Entity translationEntity = new Entity("Translation");
-    translationEntity.setProperty("translation",translatedText);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    translationEntity.setProperty("translation",translatedText); 
     datastore.put(translationEntity);
 
-    // Output the translation.
-    // response.setContentType("text/html; charset=UTF-8");
-    // response.setCharacterEncoding("UTF-8");
-    // response.getWriter().println(translatedText);
     response.sendRedirect("/");
   }
  @Override
@@ -60,9 +64,10 @@ public class TranslationServlet extends HttpServlet {
             datastore.delete(entity.getKey());
         }
     String json_translations = convertToJson(translations);
-    response.setContentType("application/json;");
-    response.getWriter().println(json_translations);
     translations.clear();
+    response.setContentType("application/json; charset=UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.getWriter().println(json_translations);
   }
   private String convertToJson(ArrayList items){
       Gson gson = new Gson();

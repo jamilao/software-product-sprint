@@ -13,6 +13,9 @@ body, form {
     font-family: 'Playfair Display', serif;
     margin: 0px;
 }
+button, select {
+    color: white;
+}
 section {
     padding: 30px;
     border: 0;

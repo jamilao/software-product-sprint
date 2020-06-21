@@ -70,10 +70,14 @@ async function fetchTranslation(){
     .then(response => response.json())
     .then(translation => {
         console.log(translation);
-        if(translation.length == 0){
+        if(translation == 0){
             return;
         }
-        container.innerText = translation[0];
+        container.innerHTML = translation[0];
         }
     );
+}
+function clearTranslation(){
+    const container = document.getElementById('result');
+    container.innerText = "";
 }
