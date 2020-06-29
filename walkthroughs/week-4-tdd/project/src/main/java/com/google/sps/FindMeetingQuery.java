@@ -89,6 +89,5 @@ public final class FindMeetingQuery {
         openTimes.add(potentialSlot);
     }
     return openTimes;
-    //throw new UnsupportedOperationException("TODO: Implement this method.");
   }
 }
