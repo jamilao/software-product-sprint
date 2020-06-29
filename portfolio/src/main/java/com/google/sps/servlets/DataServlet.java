@@ -14,16 +14,12 @@
 
 package com.google.sps.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -46,7 +42,6 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    UserService userService = UserServiceFactory.getUserService();
         for (Entity entity : results.asIterable()){
             String name = (String) entity.getProperty("name");
             String email = (String) entity.getProperty("email");
