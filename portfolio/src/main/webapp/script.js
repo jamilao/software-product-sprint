@@ -48,7 +48,6 @@ async function helloJamila(){
     const greeting = await response.text();
     document.getElementById('greeting').innerText = greeting;
 }
-
 async function fetchComments(){
     const container = document.getElementById('comments');
     console.log("Fetching Comments");
@@ -63,4 +62,22 @@ async function fetchComments(){
         });
     }
     );
+}
+async function fetchTranslation(){
+    const container = document.getElementById('result');
+    console.log("requesting translation");
+    fetch('/translate')
+    .then(response => response.json())
+    .then(translation => {
+        console.log(translation);
+        if(translation == 0){
+            return;
+        }
+        container.innerHTML = translation[0];
+        }
+    );
+}
+function clearTranslation(){
+    const container = document.getElementById('result');
+    container.innerText = "";
 }

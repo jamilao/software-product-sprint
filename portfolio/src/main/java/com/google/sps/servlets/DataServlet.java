@@ -21,9 +21,11 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,16 +42,16 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()){
-        String name = (String) entity.getProperty("name");
-        String email = (String) entity.getProperty("email");
-        String message = (String) entity.getProperty("message");
-        CommentData comment = new CommentData(name,email,message);
-        comments.add(comment);
-    }
-    String json_messages = convertToJson(comments);
-    response.setContentType("application/json;");
-    response.getWriter().println(json_messages);
+        for (Entity entity : results.asIterable()){
+            String name = (String) entity.getProperty("name");
+            String email = (String) entity.getProperty("email");
+            String message = (String) entity.getProperty("message");
+            CommentData comment = new CommentData(name,email,message);
+            comments.add(comment);
+        }
+        String json_messages = convertToJson(comments);
+        response.setContentType("application/json;");
+        response.getWriter().println(json_messages);
   }
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
